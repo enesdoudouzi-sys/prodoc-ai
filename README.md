@@ -1,6 +1,7 @@
-# DocFlow AI
+# ProDoc AI
 
-**KI-gestützte Dokumentenverarbeitung und Prozessanalyse für KMUs.**
+**KI-gestützte Dokumentenverarbeitung und Prozessanalyse für KMUs.**  
+*Von Enes Doudouzi — Intelligent Process Optimization Lab*
 
 [![CI](https://github.com/enesdoudouzi-sys/docflow-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/enesdoudouzi-sys/docflow-ai/actions)
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python)](https://python.org)
@@ -44,9 +45,22 @@ API Docs: http://localhost:8000/docs
 | `DELETE` | `/dokumente/` | Verlauf leeren |
 | `POST` | `/prozesse/bpmn` | Prozess → BPMN generieren |
 
+## Lernmodule — Enes Doudouzi (AI Engineering)
+
+| Modul | Thema | Woche | Status |
+|---|---|---|---|
+| E-001 | Prototyp-Review & Tech-Stack | 1 | 🔵 In Arbeit |
+| E-002 | Datenmodell: Mehrfachpositionen | 2 | ⬜ Offen |
+| E-003 | SQLite DB + SQLAlchemy | 3 | ⬜ Offen |
+| E-004 | Event Log Design | 3 | ⬜ Offen |
+| E-005 | Regelbasierter Extraktor (Baseline) | 4 | ⬜ Offen |
+| E-006 | Evaluation: KI vs. Regelbasiert | 5 | ⬜ Offen |
+| E-007 | CSV / SQL Export-Endpoints | 6 | ⬜ Offen |
+| E-008 | Docker + Cloud Deployment | 8 | ⬜ Offen |
+
 ## Team
 
-**Enes Doudouzi** — AI & Software Engineering  
+**Enes Doudouzi** — AI Engineering & Softwareentwicklung  
 **Ahmet** — Process Optimization & Business Analysis
 
 *Intelligent Process Optimization Lab*
