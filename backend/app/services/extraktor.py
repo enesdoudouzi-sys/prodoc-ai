@@ -4,6 +4,7 @@ from __future__ import annotations
 import io
 import json
 import os
+import re
 
 import PyPDF2
 from google import genai
@@ -11,7 +12,7 @@ from google.genai import types
 
 from app.models.dokument import DokumentTyp, ExtrahierteDaten
 
-MODEL = "models/gemini-3.5-flash"
+MODEL = "gemini-2.0-flash"
 
 SYSTEM_PROMPT = """Du bist ein Experte für Dokumentenanalyse.
 
@@ -35,6 +36,14 @@ def _client() -> genai.Client:
     return genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
 
 
+def _parse_json(text: str) -> dict:
+    text = text.strip()
+    match = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.DOTALL)
+    if match:
+        return json.loads(match.group(1))
+    return json.loads(text)
+
+
 def text_aus_pdf(inhalt: bytes) -> str:
     reader = PyPDF2.PdfReader(io.BytesIO(inhalt))
     return "\n".join(s.extract_text() or "" for s in reader.pages).strip()
@@ -50,12 +59,7 @@ def extrahiere_dokument(text: str) -> ExtrahierteDaten:
             temperature=0.1,
         ),
     )
-    rohtext = antwort.text.strip()
-    if rohtext.startswith("```"):
-        rohtext = rohtext.split("```")[1]
-        if rohtext.startswith("json"):
-            rohtext = rohtext[4:]
-    daten = json.loads(rohtext)
+    daten = _parse_json(antwort.text)
     return ExtrahierteDaten(
         typ=DokumentTyp(daten.get("typ", "unbekannt")),
         absender=daten.get("absender"),

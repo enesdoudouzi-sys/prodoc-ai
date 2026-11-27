@@ -1,16 +1,16 @@
 """BPMN-Generierung via Gemini — Prozessbeschreibung → BPMN 2.0 XML."""
 from __future__ import annotations
 
+import json
 import os
 import re
-import uuid
 
 from google import genai
 from google.genai import types
 
 from app.models.prozess import BpmnErgebnis
 
-MODEL = "models/gemini-3.5-flash"
+MODEL = "gemini-2.0-flash"
 
 SYSTEM_PROMPT = """Du bist ein BPMN 2.0 Experte.
 
@@ -30,6 +30,14 @@ Antworte mit einem JSON:
 }"""
 
 
+def _parse_json(text: str) -> dict:
+    text = text.strip()
+    match = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.DOTALL)
+    if match:
+        return json.loads(match.group(1))
+    return json.loads(text)
+
+
 def generiere_bpmn(beschreibung: str, name: str = "Prozess") -> BpmnErgebnis:
     client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
 
@@ -42,14 +50,7 @@ def generiere_bpmn(beschreibung: str, name: str = "Prozess") -> BpmnErgebnis:
         ),
     )
 
-    rohtext = antwort.text.strip()
-    if rohtext.startswith("```"):
-        rohtext = rohtext.split("```")[1]
-        if rohtext.startswith("json"):
-            rohtext = rohtext[4:]
-
-    import json
-    daten = json.loads(rohtext)
+    daten = _parse_json(antwort.text)
 
     return BpmnErgebnis(
         name=daten.get("name", name),

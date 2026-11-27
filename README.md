@@ -3,7 +3,7 @@
 **KI-gestützte Dokumentenverarbeitung und Prozessanalyse für KMUs.**  
 *Von Enes Doudouzi — Intelligent Process Optimization Lab*
 
-[![CI](https://github.com/enesdoudouzi-sys/docflow-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/enesdoudouzi-sys/docflow-ai/actions)
+[![CI](https://github.com/enesdoudouzi-sys/prodoc-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/enesdoudouzi-sys/prodoc-ai/actions)
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi)](https://fastapi.tiangolo.com)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
@@ -22,8 +22,8 @@ Dokumente hochladen → KI extrahiert Daten → Prozess wird als BPMN visualisie
 ## Quickstart
 
 ```bash
-git clone https://github.com/enesdoudouzi-sys/docflow-ai.git
-cd docflow-ai
+git clone https://github.com/enesdoudouzi-sys/prodoc-ai.git
+cd prodoc-ai
 cp .env.example .env
 # GOOGLE_API_KEY in .env eintragen
 
@@ -49,7 +49,7 @@ API Docs: http://localhost:8000/docs
 
 | Modul | Thema | Woche | Status |
 |---|---|---|---|
-| E-001 | Prototyp-Review & Tech-Stack | 1 | 🔵 In Arbeit |
+| E-001 | Prototyp-Review & Tech-Stack | 1 | ✅ Fertig |
 | E-002 | Datenmodell: Mehrfachpositionen | 2 | ⬜ Offen |
 | E-003 | SQLite DB + SQLAlchemy | 3 | ⬜ Offen |
 | E-004 | Event Log Design | 3 | ⬜ Offen |

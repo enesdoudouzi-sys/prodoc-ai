@@ -1,6 +1,11 @@
-from pydantic import BaseModel
-from typing import Optional
+from __future__ import annotations
+
+from datetime import datetime, timezone
 from enum import Enum
+from typing import Optional
+import uuid
+
+from pydantic import BaseModel, Field
 
 
 class DokumentTyp(str, Enum):
@@ -18,10 +23,12 @@ class ExtrahierteDaten(BaseModel):
     betrag: Optional[str] = None
     referenz: Optional[str] = None
     beschreibung: Optional[str] = None
-    rohfelder: dict = {}
+    rohfelder: dict = Field(default_factory=dict)
 
 
 class DokumentErgebnis(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    created_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
     dateiname: str
     status: str
     typ: Optional[DokumentTyp] = None
